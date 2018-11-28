@@ -67,7 +67,7 @@ body{
 
 .title{
     padding: 10vh 0 2vh 0;
-    color: #fff;
+    color: #ae1300;
     font-size: var(--fontSizeXx);
     font-weight: 400;
     line-height: var(--lineHeightSm);
@@ -76,17 +76,18 @@ body{
 }
 
 .results{
+    display: block;
     color: #1db954;
     font-size: var(--fontSizeSm);
     font-weight: 400;
     line-height: var(--lineHeightSm);
     text-align: center;
-    text-shadow: -0.1rem 0.1rem 0.2rem var(--colorPrimary800);
-    float:right;
+    float: left;
+    padding-left: 25%;
 }
 
 .wrapper{
-    min-height: 100%;
+    min-height: 50%;
     margin-bottom: -50px;
 }
 
