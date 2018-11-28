@@ -11,8 +11,7 @@ app.get('/bust', async (req, res) => {
     name: projectName,
     children: transformedObj,
   };
-  let chart = util.makeD3Tree(resObj);
-  res.send(chart);
+  res.send(resObj);
 });
 
 app.get('/', function(req, res) {

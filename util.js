@@ -1,6 +1,5 @@
 const axios = require('axios');
 const atob = require('atob');
-const d3 = require('d3');
 const linter = require('./linter');
 const GITHUB_API = 'https://api.github.com/repos';
 const WARNING = 'warning';
@@ -77,12 +76,5 @@ let self = module.exports = {
         }
         return fileObj;
       })
-  ),
-
-  makeD3Tree: (treeData) => {
-    const root = d3.hierarchy(treeData);
-    root.dx = 10;
-    root.dy = 10 / (root.height + 1);
-    return d3.tree().nodeSize([root.dx, root.dy])(root);
-  }
+  )
 };

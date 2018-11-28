@@ -25,7 +25,7 @@ body{
     justify-content: center;
     overflow: scroll;
     color: #455A64;
-    background-color: #191414;
+    background-color: #ffffff;
     font-family: var(--fontFamily);
     font-size: var(--fontSizeMd);
     line-height: var(--lineHeightMd);
