@@ -1,7 +1,8 @@
 const axios = require('axios');
 const atob = require('atob');
+const d3 = require('d3');
 const linter = require('./linter');
-const GITHUB_API = "https://api.github.com/repos";
+const GITHUB_API = 'https://api.github.com/repos';
 const WARNING = 'warning';
 const ERROR = 'error';
 
@@ -10,7 +11,7 @@ const mysecretobjectpleasedontsteal = {
   client_secret: '5d300934fe6df77cfe1a9768b93f5b80422fe8f1'
 };
 
-var self = module.exports = {
+let self = module.exports = {
   getProject: async (projectUrl) => {
     let trimmed = self.trimGithubUrl(projectUrl);
     let res = await axios.get(`${GITHUB_API}/${trimmed}/git/trees/master`, {
@@ -34,7 +35,7 @@ var self = module.exports = {
             let numMessages = {};
             numMessages[WARNING] = self.filterMessagesByKey(lintedContent, WARNING);
             numMessages[ERROR] = self.filterMessagesByKey(lintedContent, ERROR);
-            fileTree[tree.path] =  numMessages; //todo linter shit
+            fileTree[tree.path] =  numMessages;
           } else if (tree.type === 'tree') {
             let res = await axios.get(tree.url, {
               params: mysecretobjectpleasedontsteal
@@ -42,7 +43,6 @@ var self = module.exports = {
             fileTree[tree.path] = await self.traverseTree(res.data.tree);
           }
     }
-
     return fileTree;
   },
 
@@ -56,11 +56,33 @@ var self = module.exports = {
     return arr.filter(x => {
         switch (key) {
           case WARNING:
-            return x.severity == 1;
+            return x.severity === 1;
           case ERROR:
-            return x.severity == 2;
+            return x.severity === 2;
         }
       }).length;
+  },
+
+  transformObject: (obj) => (
+    Object
+      .keys(obj)
+      .filter(filterKey => Object.keys(obj[filterKey]).length > 0)
+      .map(key => {
+        let fileObj = {
+          name: key
+        };
+        if (Object.keys(obj[key]).length > 0 &&
+            !key.endsWith('.js')) {
+          fileObj.children = self.transformObject(obj[key]);
+        }
+        return fileObj;
+      })
+  ),
+
+  makeD3Tree: (treeData) => {
+    const root = d3.hierarchy(treeData);
+    root.dx = 10;
+    root.dy = 10 / (root.height + 1);
+    return d3.tree().nodeSize([root.dx, root.dy])(root);
   }
 };
-
