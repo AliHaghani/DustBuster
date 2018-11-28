@@ -1,0 +1,23 @@
+{
+  "name": "dustbuster",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AliHaghani/DustBuster.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AliHaghani/DustBuster/issues"
+  },
+  "homepage": "https://github.com/AliHaghani/DustBuster#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
