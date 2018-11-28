@@ -10,7 +10,9 @@ app.get('/bust', async (req, res) => {
   let resObj = {
     name: projectName,
     children: transformedObj,
+    percentage: project.percentage
   };
+
   res.send(resObj);
 });
 

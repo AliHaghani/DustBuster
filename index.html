@@ -17,14 +17,11 @@
         <input class="search-bar" type="text" name="url" id="url" placeholder="Enter GitHub project URL">
         <input class="search-icon" type="image" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png">
     </form>
-    <div class="push"></div>
-    <p class="results" id="results"></p>
 </div>
 
 
 <script>
   function process(){
-    alert('Implement!')
     let projectUrl = document.getElementById("url").value;
     let url = '/bust?url=' + projectUrl;
     $.ajax({
@@ -32,8 +29,6 @@
       type: "GET",
       success: function (data) {
         makeD3Stuff(data);
-        document.getElementById('results').innerHTML = data;
-        $('#results span').text(data);
       },
       error: function (xhr, status) {
         document.getElementById('results').innerHTML = '<span style="color: red;">An error occurred.</span>';
@@ -43,8 +38,24 @@
     return false;
   }
 
+  function convertToColour(percentage) {
+    percentage *= 100;
+    percentage = Math.floor(percentage);
+    if (percentage < 10) {
+      return "#008c1e";
+    } else if (percentage < 30) {
+      return "#a4ff01";
+    } else if (percentage < 50) {
+      return "#f9ff00";
+    } else if (percentage < 70) {
+      return "#ff9400";
+    } else {
+      return "#ff0004";
+    }
+  }
+
   var margin = {top: 20, right: 120, bottom: 20, left: 120},
-    width = 960 - margin.right - margin.left,
+    width = 1500 - margin.right - margin.left,
     height = 500 - margin.top - margin.bottom;
 
   var i = 0,
@@ -95,7 +106,7 @@
 
     nodeEnter.append("circle")
       .attr("r", 1e-6)
-      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#921122"; });
+      .style("fill", function(d) { return convertToColour(d.percentage) });
 
     nodeEnter.append("text")
       .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
@@ -111,7 +122,7 @@
 
     nodeUpdate.select("circle")
       .attr("r", 10)
-      .style("fill", function(d) { return d._children ? "lightsteelblue" : "#ff0033"; });
+      .style("fill", function(d) { return convertToColour(d.percentage) });
 
     nodeUpdate.select("text")
       .style("fill-opacity", 1);
