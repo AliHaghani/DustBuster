@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/AliHaghani/DustBuster#readme",
   "dependencies": {
+    "eslint": "^5.9.0",
     "express": "^4.16.4"
   }
 }
