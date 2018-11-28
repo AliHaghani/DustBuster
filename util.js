@@ -20,8 +20,10 @@ let self = module.exports = {
     });
     let trees = res.data.tree;
     let traversed = await self.traverseTree(trees);
-    let projPercentage = await self.addPercentage(traversed);
-    traversed.percentage = projPercentage;
+    let info = await self.addPercentage(traversed);
+    traversed.percentage = info.percentage;
+    traversed.warning = info.warning;
+    traversed.error = info.error;
     return traversed;
   },
 
@@ -30,17 +32,29 @@ let self = module.exports = {
         tree.percentage = (tree.warning + tree.error) / maxErrors;
     } else {
       let percentage = 0;
+      let warnings = 0;
+      let errors = 0;
       for (let child in tree) {
-        percentage += await self.addPercentage(tree[child]);
+        let info = await self.addPercentage(tree[child]);
+        percentage += info.percentage;
+        warnings += info.warning;
+        errors += info.error;
       }
 
       let numKeys = Object.keys(tree).length;
       if (numKeys > 0) {
         percentage /= numKeys;
         tree.percentage = percentage;
+        tree.error = errors;
+        tree.warning = warnings;
       }
     }
-    return tree.percentage || 0;
+
+    let info = {};
+    info.percentage = tree.percentage || 0;
+    info.warning = tree.warning || 0;
+    info.error = tree.error || 0;
+    return info;
   },
 
 
@@ -93,7 +107,9 @@ let self = module.exports = {
       .map(key => {
         let fileObj = {
           name: key,
-          percentage: obj[key].percentage
+          percentage: obj[key].percentage,
+          warning: obj[key][WARNING],
+          error: obj[key][ERROR]
         };
         if (Object.keys(obj[key]).length > 0 &&
             !key.endsWith('.js')) {
