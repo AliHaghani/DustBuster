@@ -1,0 +1,96 @@
+:root {
+    /* generic */
+    --gutterSm: 0.4rem;
+    --gutterMd: 0.8rem;
+    --gutterLg: 1.6rem;
+    --gutterXl: 2.4rem;
+    --gutterXx: 7.2rem;
+    --colorPrimary400: #077e0f;
+    --colorPrimary600: #055308;
+    --colorPrimary800: #033405;
+    --fontFamily: "Dosis", sans-serif;
+    --fontSizeSm: 1.2rem;
+    --fontSizeMd: 1.6rem;
+    --fontSizeLg: 2.1rem;
+    --fontSizeXl: 2.8rem;
+    --fontSizeXx: 3.6rem;
+    --lineHeightSm: 1.1;
+    --lineHeightMd: 1.8;
+    --transitionDuration: 300ms;
+    --transitionTF: cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+body{
+    align-items: center;
+    justify-content: center;
+    overflow: scroll;
+    color: #455A64;
+    background-color: #191414;
+    font-family: var(--fontFamily);
+    font-size: var(--fontSizeMd);
+    line-height: var(--lineHeightMd);
+    height: 100%;
+    margin: 0;
+}
+
+.search-container{
+    width: 550px;
+    max-width: 95%;
+    display: block;
+    margin: 0 auto;
+}
+
+.search-bar{
+    margin: 0 auto;
+    width: 100%;
+    height: 45px;
+    padding: 0 40px 0 20px;
+    font-size: 1rem;
+    border: 1px solid #D0CFCE;
+    outline: none;
+}
+
+.search-bar:focus{
+    border: 1px solid #1db954;
+    transition: 0.35s ease;
+}
+
+.search-icon{
+    color: #1db954;
+    position: relative;
+    float: right;
+    width: 75px;
+    height: 75px;
+    top: -62px;
+    right: -15px;
+}
+
+.title{
+    padding: 10vh 0 2vh 0;
+    color: #fff;
+    font-size: var(--fontSizeXx);
+    font-weight: 400;
+    line-height: var(--lineHeightSm);
+    text-align: center;
+    text-shadow: -0.1rem 0.1rem 0.2rem var(--colorPrimary800);
+}
+
+.results{
+    color: #1db954;
+    font-size: var(--fontSizeSm);
+    font-weight: 400;
+    line-height: var(--lineHeightSm);
+    text-align: center;
+    text-shadow: -0.1rem 0.1rem 0.2rem var(--colorPrimary800);
+    float:right;
+}
+
+.wrapper{
+    min-height: 100%;
+    margin-bottom: -50px;
+}
+
+.footer, .push{
+    text-align: center;
+    height: 50px;
+}

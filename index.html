@@ -1,0 +1,40 @@
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script>
+    function process(){
+      alert('Implement!')
+      let projectUrl = document.getElementById("url").value;
+      let url = '/bust?url=' + projectUrl;
+      $.ajax({
+        url,
+        type: "GET",
+        success: function (data) {
+          document.getElementById('results').innerHTML = data;
+          $('#results span').text(data);
+        },
+        error: function (xhr, status) {
+          document.getElementById('results').innerHTML = '<span style="color: red;">An error occurred.</span>';
+        }
+      })
+
+      return false;
+    }
+</script>
+
+<!DOCTYPE html>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<head>
+    <title>DustBuster</title>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheet.css">
+</head>
+
+<div class="wrapper">
+    <h1 class="title">DustBuster</h1>
+    <form class="search-container" name="input" onSubmit="return process();">
+        <input class="search-bar" type="text" name="url" id="url" placeholder="Enter GitHub project URL">
+        <input class="search-icon" type="image" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png">
+    </form>
+    <div class="push"></div>
+    <p class="results" id="results"></p>
+</div>
