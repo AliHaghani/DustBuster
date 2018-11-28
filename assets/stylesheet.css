@@ -94,3 +94,33 @@ body{
     text-align: center;
     height: 50px;
 }
+
+#legend2{
+    overflow:hidden;
+}
+.legend2 {
+    float:left;
+    margin-right: 1em;
+}
+
+.zero { background: #FFFFFF;}
+.one { background: #008c1e;}
+.two { background: #a4ff01;}
+.three { background: #f9ff00;
+}
+.four { background: #ff9400; }
+.five { background: #ff0004; }
+
+.country-name {
+    margin: 0 !important;
+}
+
+.key-dot {
+    display: inline-block;
+    height: 45px;
+    width: 45px;
+}
+
+.key-dot-small {
+    width:5px;
+}
