@@ -4,6 +4,7 @@ const util    = require('./util');
 
 app.get('/bust', async (req, res) => {
   let projectUrl = req.param('url');
+  let project = util.getProject(projectUrl);
   res.send('Ok sick, got URL.');
 });
 
