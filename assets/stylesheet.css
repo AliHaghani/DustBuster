@@ -67,7 +67,7 @@ body{
 
 .title{
     padding: 10vh 0 2vh 0;
-    color: #fff;
+    color: #ae1300;
     font-size: var(--fontSizeXx);
     font-weight: 400;
     line-height: var(--lineHeightSm);
@@ -86,11 +86,6 @@ body{
 }
 
 .wrapper{
-    min-height: 100%;
+    min-height: 50%;
     margin-bottom: -50px;
-}
-
-.footer, .push{
-    text-align: center;
-    height: 50px;
 }
