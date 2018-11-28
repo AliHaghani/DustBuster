@@ -1,6 +1,9 @@
 const axios = require('axios');
 const atob = require('atob');
+const linter = require('./linter');
 const GITHUB_API = "https://api.github.com/repos";
+const WARNING = 'warning';
+const ERROR = 'error';
 
 const mysecretobjectpleasedontsteal = {
   client_id: '7b75ed090eaf22c7e569',
@@ -27,14 +30,19 @@ var self = module.exports = {
               params: mysecretobjectpleasedontsteal
             });
             let contents = atob(res.data.content);
-            fileTree[tree.path] = contents; //todo linter shit
+            let lintedContent = linter.lint(contents);
+            let numMessages = {};
+            numMessages[WARNING] = self.filterMessagesByKey(lintedContent, WARNING);
+            numMessages[ERROR] = self.filterMessagesByKey(lintedContent, ERROR);
+            fileTree[tree.path] =  numMessages; //todo linter shit
           } else if (tree.type === 'tree') {
             let res = await axios.get(tree.url, {
               params: mysecretobjectpleasedontsteal
             });
-            fileTree[tree.path] = self.traverseTree(res.data.tree);
+            fileTree[tree.path] = await self.traverseTree(res.data.tree);
           }
     }
+
     return fileTree;
   },
 
@@ -42,5 +50,17 @@ var self = module.exports = {
     let pre = 'https://github.com/';
     return projectUrl.substr(projectUrl.indexOf(pre) + pre.length);
   },
+
+
+  filterMessagesByKey: (arr, key) => {
+    return arr.filter(x => {
+        switch (key) {
+          case WARNING:
+            return x.severity == 1;
+          case ERROR:
+            return x.severity == 2;
+        }
+      }).length;
+  }
 };
 
